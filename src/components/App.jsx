@@ -5,7 +5,7 @@ import MainPage from "./Mainpage";
 function App() {
   return (
     <>
-      <section className="w-screen h-screen font-sans divide-y-2 divide-[#403f4e]">
+      <section className="w-screen h-lvh font-sans divide-y-2 divide-[#403f4e] overflow-x-hidden">
         <Header />
         <MainPage />
       </section>
