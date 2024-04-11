@@ -8,6 +8,7 @@ function Header() {
   const [showNewTaskPopUp, setNewTaskPopUp] = useState(false);
 
   const onClick = () => setNewTaskPopUp(true);
+  const handleToggle = () => setNewTaskPopUp(false);
 
   return (
     <>
@@ -34,7 +35,7 @@ function Header() {
         </div>
       </section>
 
-      {showNewTaskPopUp ? <NewPopUp /> : null}
+      {showNewTaskPopUp ? <NewPopUp handleClick={() => handleToggle() } /> : null}
     </>
   );
 }
