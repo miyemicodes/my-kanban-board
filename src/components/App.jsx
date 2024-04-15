@@ -8,7 +8,7 @@ function App() {
     <>
       
       <StoreContextProvider>
-        <section className="w-screen h-lvh font-sans divide-y-2 divide-[#403f4e] overflow-x-hidden">
+        <section className="w-screen h-screen font-sans divide-y-2 divide-[#403f4e] overflow-x-hidden">
           <Header />
           <MainPage />
         </section>
