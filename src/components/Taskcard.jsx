@@ -9,7 +9,7 @@ function TaskCard({taskData}) {
         </h2>
 
         <p className="text-[11px] font-medium text-slate-200 py-1">
-          0 of {taskData.subtasks.length} subtask
+          0 of {taskData.subTasks.length} subtask
         </p>
       </div>
     </>
