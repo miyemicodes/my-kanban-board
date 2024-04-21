@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import MainPage from "./Mainpage";
-import StoreContextProvider from "./PopUp/Store-context";
+import StoreContextProvider from '../context/Store-context';
 
 function App() {
   return (
