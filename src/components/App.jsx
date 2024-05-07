@@ -5,8 +5,7 @@ import StoreContextProvider from "./PopUp/Store-context";
 
 function App() {
   return (
-    <>
-      
+    <>     
       <StoreContextProvider>
         <section className="w-screen h-screen font-sans divide-y-2 divide-[#403f4e] overflow-x-hidden">
           <Header />
