@@ -1,5 +1,3 @@
-import React from "react";
-
 // export const DefaultData = [
 //   {
 //     boardID: "uuid-1",
@@ -31,13 +29,24 @@ export const DefaultData = [
         id: "kdj",
         title: "cooking baens",
         description: "ninini is ninipoo",
-        subtasks: ["boil orange"],
+        subTasks: [
+          { 
+            id: '1', 
+            name: 'boil rice', 
+            isDone: false, 
+          },
+          { 
+            id: '2', 
+            name: 'fry rice', 
+            isDone: false, 
+          }
+        ],
       },
       {
         id: "kdjtghj",
         title: "cooking fish",
         description: "ninini is ninipoo",
-        subtasks: ["boil orange", "put salt on fire"],
+        subTasks: []
       },
     ],
   },
