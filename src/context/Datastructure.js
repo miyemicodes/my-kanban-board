@@ -55,4 +55,9 @@ export const DefaultData = [
     label: "In Progress",
     tasks: [],
   },
+  {
+    id: "done",
+    label: "Done",
+    tasks: [],
+  },
 ];

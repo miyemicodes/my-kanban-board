@@ -6,21 +6,32 @@ import { useStoreContext } from '../context/Store-context';
 
 function Board() {
   const [showColumnPopup, setColumnPopup] = useState(false);
+  // const [editColuData,] = useState()
   const [store] = useStoreContext();
 
   const onClick = () => setColumnPopup(true);
   const handleToggle = () => setColumnPopup(false);
+  
+  function colData(columnData,task){
+     console.log(columnData.id,task);
+  }
 
   return (
     <>
+
       <section className='bg-[#22212c] h-auto min-h-[250px] w-3/4 flex flex-row flex-shrink-0 gap-8 overflow-x-auto p-8'>
-        {store.map((storeData, index) => (
+        {store.map((columnData, index) => (
           <div
             key={index}
             className=' p-4 w-[350px] rounded-lg border-dashed border-2 flex-shrink-0 border-[#808fa4]'
           >
-            {storeData.tasks.map((tasks) => (
-              <TaskCard key={tasks.id} taskData={tasks} />
+          <p className="text-white text-3xl">{columnData.label}</p>
+
+            {columnData.tasks.map((task) => (              
+              <div key={task.id}  onClick = {()=> colData(columnData.id,task)}>
+                 <TaskCard key={task.id} taskData={task} />
+              </div>
+             
             ))}
           </div>
         ))}
@@ -35,6 +46,7 @@ function Board() {
             <p> New Column</p>
           </button>
         </div>
+
       </section>
 
       {showColumnPopup ? (

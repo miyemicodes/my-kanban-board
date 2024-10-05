@@ -7,6 +7,9 @@ function TaskCard({taskData}) {
         <h2 className="text-lg font-semibold text-slate-200">
           {taskData.title}
         </h2>
+        <p>
+          {taskData.description}
+        </p>
 
         <p className="text-[11px] font-medium text-slate-200 py-1">
           0 of {taskData.subTasks.length} subtask
