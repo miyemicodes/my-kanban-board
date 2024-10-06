@@ -18,15 +18,17 @@ function Board() {
 
   return (
     <>
-
       <section className='bg-[#22212c] h-auto min-h-[250px] w-3/4 flex flex-row flex-shrink-0 gap-8 overflow-x-auto p-8'>
         {store.map((columnData, index) => (
           <div
             key={index}
             className=' p-4 w-[350px] rounded-lg border-dashed border-2 flex-shrink-0 border-[#808fa4]'
           >
-          <p className="text-white text-3xl">{columnData.label}</p>
-
+            <div className="flex flex-row align-center justify-between">
+              <p className="text-white text-3xl">{columnData.label}</p>
+              <span className="text-2xl text-white">({columnData.tasks.length})</span>  
+            </div>
+          
             {columnData.tasks.map((task) => (              
               <div key={task.id}  onClick = {()=> colData(columnData.id,task)}>
                  <TaskCard key={task.id} taskData={task} />

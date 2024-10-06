@@ -40,20 +40,6 @@ function NewColumnPopUp({ handleCloseModal }) {
             />
           </div>
 
-          {/*  <div className="flex flex-col gap-1">
-            <label className="text-sm font-semibold">Columns</label>
-
-            <div className="flex items-center justify-between">
-              <input className="bg-transparent border-2 border-[#403f4e] rounded-md p-2 w-[90%]" />
-              <ImCross className="w-[10%]" />
-            </div>
-
-            <button className="flex items-center justify-center gap-1 mt-4 py-2 bg-slate-50 text-[#795fc5] font-semibold rounded-2xl">
-              <FaPlus className="text-[10px]" />
-              <p className="text-sm">Add New Column</p>
-            </button>
-          </div> */}
-
           <button
             className='bg-[#795fc5] text-slate-50 font-semibold py-2 rounded-2xl'
             onClick={() => handleAddNewColumn()}
