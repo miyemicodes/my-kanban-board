@@ -18,16 +18,16 @@ function Board() {
 
 	return (
 		<>
-			<section className="bg-[#22212c] h-auto min-h-[250px] w-3/4 flex flex-row flex-shrink-0 gap-8 overflow-x-auto p-8">
+			<section className="bg-[#22212c] h-auto min-h-[250px] w-3/4 flex flex-row shrink-0 gap-8 overflow-auto p-8 custom-remove-scrollbar">
 				{store.map((columnData, index) => (
 					<div
 						key={index}
-						className=" p-4 w-[350px] rounded-lg border-dashed border-2 flex-shrink-0 border-[#808fa4]"
+						className=" p-4 min-w-[300px] max-w-[350px] rounded-lg border-dashed border-2 shrink-0 border-[#808fa4a4] overflow-y-scroll custom-remove-scrollbar"
 					>
-						<div className="flex flex-row align-center justify-between">
-							<p className="text-white text-3xl">{columnData.label}</p>
-							<span className="text-2xl text-white">
-								({columnData.tasks.length})
+						<div className="flex flex-row align-center justify-between mb-4 ">
+							<p className="text-white text-lg">{columnData.label}</p>
+							<span className="text-lg text-black bg-white rounded-full font-semibold px-3 py-1">
+								{columnData.tasks.length}
 							</span>
 						</div>
 
@@ -45,11 +45,11 @@ function Board() {
 					</div>
 				))}
 
-				<div className=" p-4 w-[350px] rounded-lg flex items-center justify-center bg-gradient-to-b from-[#30323d] to-transparent">
+				<div className=" p-4 min-w-[300px] rounded-lg flex items-center justify-center bg-gradient-to-b from-[#30323d] to-transparent">
 					<button
 						type="submit"
 						onClick={onClick}
-						className="flex self-center justify-center gap-2 font-semibold text-2xl text-[#808fa4]"
+						className="flex items-center justify-center gap-3 font-semibold text-2xl text-[#808fa4] hover:text-white"
 					>
 						<FaPlus className="text-2xl" />
 						<p> New Column</p>

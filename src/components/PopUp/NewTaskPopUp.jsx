@@ -117,7 +117,7 @@ function NewPopUp({ handleClick }) {
 									type="button"
 									onClick={() => handleRemoveFormData(index)}
 								>
-									<ImCross className="w-[20px] h-[20pz] flex-shrink-0" />
+									<ImCross className="w-[20px] h-[20px] flex-shrink-0" />
 								</button>
 							</div>
 						))}
