@@ -1,16 +1,16 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export const generateNewColumn = (label) => {
-    const taskStatusColumnData = {
-      id: uuidv4(),
-      label,
-      tasks: [],
-    };
-    return taskStatusColumnData;
-  }
+  const taskStatusColumnData = {
+    id: uuidv4(),
+    label,
+    tasks: [],
+  };
+  return taskStatusColumnData;
+}
 
-  export const addNewColumn = (prevFullStoreData, columnName) => {
-    const columnData = generateNewColumn(columnName);
-    // speead the previous data and add the new column data
-    return [...prevFullStoreData, columnData];
-  }
+export const addNewColumn = (prevFullStoreData, columnName) => {
+  const columnData = generateNewColumn(columnName);
+  // spread the previous data and add the new column data
+  return [...prevFullStoreData, columnData];
+}

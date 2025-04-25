@@ -17,9 +17,17 @@ function Board() {
 		console.log(columnData.id, task);
 	}
 
+	const onDragEnd = (result) => {
+		const { source, destination } = result;
+		if (!destination) return;
+
+		const sourceId = columns[source.droppableId];
+		//to be continued
+	};
+
 	return (
 		<>
-			<DragDropContext onDragEnd={onDragEnd}>
+			<DragDropContext>
 				<section className="bg-[#22212c] h-auto min-h-[250px] w-3/4 flex flex-row shrink-0 gap-8 overflow-auto p-8 custom-remove-scrollbar">
 					{store.map((columnData, index) => (
 						<div
@@ -33,17 +41,27 @@ function Board() {
 								</span>
 							</div>
 
-							{columnData.tasks.map((task) => (
-								<div
-									key={task.id}
-									onClick={() => colData(columnData.id, task)}
-								>
-									<TaskCard
-										key={task.id}
-										taskData={task}
-									/>
-								</div>
-							))}
+							<Droppable droppableId={columnData.id}>
+								{(provided) => (
+									<div
+										ref={provided.innerRef}
+										{...provided.droppableProps}
+									>
+										{columnData.tasks.map((task) => (
+											<div
+												key={task.id}
+												onClick={() => colData(columnData.id, task)}
+											>
+												<TaskCard
+													key={task.id}
+													taskData={task}
+												/>
+											</div>
+										))}
+										{provided.placeholder}
+									</div>
+								)}
+							</Droppable>
 						</div>
 					))}
 
@@ -59,11 +77,9 @@ function Board() {
 					</div>
 				</section>
 
-				<Droppable>
-					{showColumnPopup ? (
-						<NewColumnPopUp handleCloseModal={() => handleToggle()} />
-					) : null}
-				</Droppable>
+				{showColumnPopup ? (
+					<NewColumnPopUp handleCloseModal={() => handleToggle()} />
+				) : null}
 			</DragDropContext>
 		</>
 	);
