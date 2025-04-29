@@ -3,12 +3,12 @@ import { FaPlus } from "react-icons/fa";
 import NewColumnPopUp from "./PopUp/NewColumnPopup";
 import TaskCard from "./Taskcard";
 import { useStoreContext } from "../context/Store-context";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 function Board() {
 	const [showColumnPopup, setColumnPopup] = useState(false);
 	// const [editColuData,] = useState()
-	const [store] = useStoreContext();
+	const [store, setStore] = useStoreContext();
 
 	const onClick = () => setColumnPopup(true);
 	const handleToggle = () => setColumnPopup(false);
@@ -21,13 +21,45 @@ function Board() {
 		const { source, destination } = result;
 		if (!destination) return;
 
-		const sourceId = columns[source.droppableId];
-		//to be continued
+		// Create a column map to avoid repeated .find() calls
+		const columnMap = Object.fromEntries(store.map((col) => [col.id, col]));
+
+		// Same column movement
+		if (source.droppableId === destination.droppableId) {
+			const column = columnMap[source.droppableId];
+			const newTasks = Array.from(column.tasks);
+			const [movedTask] = newTasks.splice(source.index, 1);
+			newTasks.splice(destination.index, 0, movedTask);
+
+			const updatedStore = store.map((col) =>
+				col.id === column.id ? { ...col, tasks: newTasks } : col
+			);
+			setStore(updatedStore);
+			return;
+		}
+
+		// Different column movement
+		const sourceCol = columnMap[source.droppableId];
+		const destCol = columnMap[destination.droppableId];
+
+		const sourceTasks = Array.from(sourceCol.tasks);
+		const destTasks = Array.from(destCol.tasks);
+
+		const [movedTask] = sourceTasks.splice(source.index, 1);
+		destTasks.splice(destination.index, 0, movedTask);
+
+		const updatedStore = store.map((col) => {
+			if (col.id === sourceCol.id) return { ...col, tasks: sourceTasks };
+			if (col.id === destCol.id) return { ...col, tasks: destTasks };
+			return col;
+		});
+
+		setStore(updatedStore);
 	};
 
 	return (
 		<>
-			<DragDropContext>
+			<DragDropContext onDragEnd={onDragEnd}>
 				<section className="bg-[#22212c] h-auto min-h-[250px] w-3/4 flex flex-row shrink-0 gap-8 overflow-auto p-8 custom-remove-scrollbar">
 					{store.map((columnData, index) => (
 						<div
@@ -47,17 +79,26 @@ function Board() {
 										ref={provided.innerRef}
 										{...provided.droppableProps}
 									>
-										{columnData.tasks.map((task) => (
-											<div
+										{columnData.tasks.map((task, index) => (
+											<Draggable
 												key={task.id}
-												onClick={() => colData(columnData.id, task)}
+												draggableId={String(task.id)}
+												index={index}
 											>
-												<TaskCard
-													key={task.id}
-													taskData={task}
-												/>
-											</div>
+												{(provided) => (
+													<div
+														ref={provided.innerRef}
+														{...provided.draggableProps}
+														{...provided.dragHandleProps}
+														onClick={() => colData(columnData.id, task)}
+														className="mb-4" // Optional spacing between tasks
+													>
+														<TaskCard taskData={task} />
+													</div>
+												)}
+											</Draggable>
 										))}
+
 										{provided.placeholder}
 									</div>
 								)}

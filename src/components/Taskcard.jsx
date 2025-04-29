@@ -1,28 +1,16 @@
 import React from "react";
-import { Draggable } from "react-beautiful-dnd";
 
 function TaskCard({ taskData }) {
 	return (
 		<>
-			<Draggable draggableId={taskData.id}>
-				{(provided) => (
-					<div
-						ref={provided.innerRef}
-						{...provided.draggableProps}
-						{...provided.dragHandleProps}
-						className="bg-[#2d2c37] flex flex-col items-start justify-between gap-3 p-3 mb-4 rounded-xl border border-[#403f4e] hover:opacity-30"
-					>
-						<h2 className="text-lg text-slate-200 font-mono ">
-							{taskData.title}
-						</h2>
-						<p className="text-slate-300 text-sm">{taskData.description}</p>
-
-						<p className="text-xs font-medium text-slate-200 py-3 text-end ">
-							0 of {taskData.subTasks.length} subtask
-						</p>
-					</div>
-				)}
-			</Draggable>
+			<div className="bg-[#2d2c37] flex flex-col items-start justify-between gap-3 p-3 mb-4 rounded-xl border border-[#403f4e] hover:opacity-30">
+				<h2 className="text-lg text-slate-200 font-mono ">{taskData.title}</h2>
+				<p className="text-slate-300 text-sm">{taskData.description}</p>
+				<p className="text-xs font-medium text-slate-200 py-3 text-end ">
+					{taskData.subTasks?.filter((st) => st.isDone).length || 0} of
+					{taskData.subTasks?.length || 0} subtask
+				</p>
+			</div>
 		</>
 	);
 }
