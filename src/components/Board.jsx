@@ -21,40 +21,43 @@ function Board() {
 		const { source, destination } = result;
 		if (!destination) return;
 
-		// Create a column map to avoid repeated .find() calls
-		const columnMap = Object.fromEntries(store.map((col) => [col.id, col]));
+		const sourceColumnIndex = store.findIndex(
+			(c) => c.id === source.droppableId
+		);
+		const destColumnIndex = store.findIndex(
+			(c) => c.id === destination.droppableId
+		);
 
-		// Same column movement
-		if (source.droppableId === destination.droppableId) {
-			const column = columnMap[source.droppableId];
-			const newTasks = Array.from(column.tasks);
-			const [movedTask] = newTasks.splice(source.index, 1);
-			newTasks.splice(destination.index, 0, movedTask);
+		const sourceColumn = store[sourceColumnIndex];
+		const destColumn = store[destColumnIndex];
 
-			const updatedStore = store.map((col) =>
-				col.id === column.id ? { ...col, tasks: newTasks } : col
-			);
-			setStore(updatedStore);
-			return;
+		const sourceTasks = [...sourceColumn.tasks];
+		const destTasks = [...destColumn.tasks];
+
+		const [movedItem] = sourceTasks.splice(source.index, 1);
+
+		if (sourceColumn.id !== destColumn.id) {
+			destTasks.splice(destination.index, 0, movedItem);
+
+			const newStore = [...store];
+			newStore[sourceColumnIndex] = {
+				...sourceColumn,
+				tasks: sourceTasks,
+			};
+			newStore[destColumnIndex] = {
+				...destColumn,
+				tasks: destTasks,
+			};
+			setStore(newStore);
+		} else {
+			sourceTasks.splice(destination.index, 0, movedItem);
+			const newStore = [...store];
+			newStore[sourceColumnIndex] = {
+				...sourceColumn,
+				tasks: sourceTasks,
+			};
+			setStore(newStore);
 		}
-
-		// Different column movement
-		const sourceCol = columnMap[source.droppableId];
-		const destCol = columnMap[destination.droppableId];
-
-		const sourceTasks = Array.from(sourceCol.tasks);
-		const destTasks = Array.from(destCol.tasks);
-
-		const [movedTask] = sourceTasks.splice(source.index, 1);
-		destTasks.splice(destination.index, 0, movedTask);
-
-		const updatedStore = store.map((col) => {
-			if (col.id === sourceCol.id) return { ...col, tasks: sourceTasks };
-			if (col.id === destCol.id) return { ...col, tasks: destTasks };
-			return col;
-		});
-
-		setStore(updatedStore);
 	};
 
 	return (
