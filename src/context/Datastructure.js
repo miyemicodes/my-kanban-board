@@ -24,7 +24,31 @@ export const DefaultData = [
   {
     id: "todo",
     label: "Todo",
-    tasks: [],
+    tasks: [
+      {
+        id: "kdjtghj-1",
+        title: "cooking baens",
+        description: "ninini is ninipoo",
+        subTasks: [
+          {
+            id: '1',
+            name: 'boil rice',
+            isDone: false,
+          },
+          {
+            id: '2',
+            name: 'fry rice',
+            isDone: false,
+          }
+        ],
+      },
+      {
+        id: "kdjtghj-2",
+        title: "cooking fish",
+        description: "ninini is ninipoo",
+        subTasks: []
+      },
+    ],
   },
   {
     id: "in-progress",
