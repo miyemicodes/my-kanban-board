@@ -67,7 +67,7 @@ function NewPopUp({ handleClick }) {
 
 	return (
 		<>
-			<section className="bg-[#2d2c37] absolute top-10 left-[35%] right-[30%] w-[450px] h-[85vh] p-2 rounded-xl">
+			<section className="bg-[#2d2c37] absolute top-10 left-[35%] right-[30%] w-[450px] h-[85vh] p-2 rounded-xl overflow-y-scroll custom-remove-scrollbar">
 				<button
 					onClick={() => handleClick()}
 					className="p-2 hover:bg-slate-400 rounded-full group"
@@ -92,7 +92,7 @@ function NewPopUp({ handleClick }) {
 					<div className="flex flex-col gap-1">
 						<label className="text-sm font-semibold">Description</label>
 						<textarea
-							className="bg-transparent border-2 border-[#403f4e] rounded-md p-2 "
+							className="bg-transparent border-2 border-[#403f4e] rounded-md h-28 p-2 line-clamp-3 overflow-y-auto custom-remove-scrollbar"
 							value={description}
 							onChange={(e) => {
 								setDescription(e.target.value);
@@ -144,6 +144,7 @@ function NewPopUp({ handleClick }) {
 								<option
 									key={columns.id}
 									value={columns.id}
+									className="bg-slate-900"
 								>
 									{columns.label}
 								</option>
